@@ -1,0 +1,422 @@
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-style: normal;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+:before,
+:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #000;
+  font-weight: normal;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Lists==================== */
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Links, inputs and Buttons==================== */
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: #ccc;
+}
+
+a,
+.btn,
+.button,
+button,
+input[type="button"],
+input[type="button"],
+input[type="submit"],
+input[type="submit"],
+select {
+  outline: none;
+  -webkit-transition: all ease 0.4s;
+  -o-transition: all ease 0.4s;
+  transition: all ease 0.4s;
+  cursor: pointer;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+label {
+  user-select: none;
+}
+
+.btn,
+.inlinle-btn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+}
+
+.btn * {
+  pointer-events: none;
+}
+
+.btn img {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.btn:hover {
+  filter: saturate(0.4);
+  -webkit-filter: saturate(0.4);
+}
+
+.btn-dBlue {
+  background-color: var(--darkBlue) !important;
+  color: #fff;
+  padding: 6px 11px;
+  height: 30px;
+}
+
+.btn-dBlue img {
+  margin-right: 7px;
+  max-width: 7px;
+}
+
+input,
+textarea,
+select {
+  min-height: 40px;
+  font-size: 16px;
+  padding: 3px 10px;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+select {
+  -webkit-appearance: none;
+}
+
+input::-ms-clear,
+input:-ms-clear {
+  display: none;
+}
+
+textarea {
+  resize: none;
+  padding: 5px 10px;
+}
+
+:disabled,
+::disabled {
+  cursor: not-allowed;
+}
+
+:readonly,
+::readonly {
+  cursor: default;
+}
+
+::-webkit-input-placeholder {
+  font-size: inherit;
+  color: #bbb9d1;
+}
+
+::-moz-placeholder {
+  font-size: inherit;
+  color: #bbb9d1;
+}
+
+:-ms-input-placeholder {
+  font-size: inherit;
+  color: #bbb9d1;
+}
+
+::-ms-input-placeholder {
+  font-size: inherit;
+  color: #bbb9d1;
+}
+
+::placeholder {
+  font-size: inherit;
+  color: #bbb9d1;
+}
+
+/* Tables==================== */
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td {
+  vertical-align: middle;
+}
+
+/* Headings==================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+/* Other elements==================== */
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+p,
+table,
+blockquote,
+address,
+pre,
+iframe,
+form,
+figure,
+dl {
+  margin: 0;
+}
+
+p + p {
+  margin-top: 15px;
+}
+
+br,
+.clear {
+  clear: both;
+}
+
+audio,
+video {
+  display: block;
+  width: 100%;
+}
+
+/****OPTIONAL**** Common classes one can use for different purposes **************/
+
+/* ======================= Variables ======================= */
+
+:root {
+  --darkBlue: #305671;
+}
+
+/* ========================================================= */
+
+
+
+.container {
+  max-width: 1140px;
+  padding: 15PX 15px;
+  margin: 0 auto;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix:after,
+.clearfix:before {
+  content: "";
+  display: table;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.d-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.f-align-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.f-justify-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.app {
+ display: flex;
+ flex-wrap: wrap;
+}
+
+.header {
+  background-color: #162748;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  width: 100%;
+}
+.header img{
+  width: 180px;
+}
+.containerIn{
+  width: 100%;
+}
+.rowlane{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.table{
+  border: 1px solid #f6f6f6;
+  table-layout: auto;
+}
+.logo{
+  width: 50%;
+}
+.nav{
+  width: 50%;
+}
+.nav ul{
+  margin-left: auto;
+}
+.nav ul li{
+  display: inline;
+  font-size: 14px;
+}
+.nav ul li a{
+  color: #f6f6f6;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 10px;
+}
+h3.maintitle{
+  font-size: 34px;
+  color: #ec59aa;
+  font-weight: 700;
+  padding: 0 0 8px 0;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 40px;
+}
+.table td,
+.table th{
+  padding: 12px;
+  font-size: 14px;
+  color: #305671;
+  border: 1px solid #f1f1f1;
+
+}
+.componant {
+  width: 100%;
+  padding: 40px 0;
+}
+.statBoxes{
+  width: 100%;
+  padding: 0 0 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.statbox{
+  width: 48%;
+  background: #59afec;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 6px;
+  min-height: 100px;
+  padding: 15px 30px;
+  margin-bottom: 22px;
+}
+.statbox h3{
+  font-size: 45px;
+  color: #FFF;
+  font-weight: 800;
+  line-height: auto;
+}
+.statbox.two{
+  background: #94ec59;
+}
+.statbox.three{
+  background: #ec6359;
+}
+.statbox.four{
+  background: #59ecec;
+}
+.graphChild{
+  width: 48%;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 20px;
+}
+.graphChild:first-child{
+  margin-right: 4%;
+}
+.gapTop{
+  padding-top: 40px;
+}
+.gapBottom{
+  padding-bottom: 40px;
+}
