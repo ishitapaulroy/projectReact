@@ -341,6 +341,7 @@ video {
 }
 .nav ul{
   margin-left: auto;
+  margin-bottom: 5px;
 }
 .nav ul li{
   display: inline;
@@ -359,6 +360,7 @@ h3.maintitle{
   padding: 0 0 8px 0;
   border-bottom: 1px solid #ddd;
   margin: 0 0 40px;
+  width: 100%;
 }
 .table td,
 .table th{
@@ -366,7 +368,12 @@ h3.maintitle{
   font-size: 14px;
   color: #305671;
   border: 1px solid #f1f1f1;
-
+}
+.table td .green{
+  color: #94ec59;
+}
+.table td .red{
+  color: #ec599e;
 }
 .componant {
   width: 100%;
@@ -419,4 +426,83 @@ h3.maintitle{
 }
 .gapBottom{
   padding-bottom: 40px;
+}
+.userdetails{
+  width: 100%;
+  padding: 10px;
+}
+.userdetails li{
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed #ddd;
+  display: flex;
+  flex-wrap: wrap;
+}
+.userdetails li:last-child{
+  border:none;
+}
+.userdetails li span:first-child{
+  width: 30%;
+  color: #1489dd;
+}
+.userdetails li span:last-child{
+  width: 70%;
+  color: #3a373b;
+}
+.imgUser{
+  margin: 20px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 4px;
+  border: 1px solid #ddd;
+}
+.imgUser img{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+}
+.child1{
+  width: 30%;
+}
+.child2{
+  width: 70%;
+}
+
+.username{
+  width: 100%;
+  text-align: right;
+  padding: 0px 10px;
+}
+.justify-center{
+  justify-content: center;
+}
+
+.formDiv div{
+  width: 100%;
+  padding: 5px;
+}
+.formDiv div label{
+  width: 100%;
+  color: #000;
+  padding-bottom: 6px;
+}
+.formDiv div input{
+    width: 100%;
+    font-size: 13px;
+}
+
+.formDiv .submit{
+  width: 100%;
+  background-color: #0dcaf0;
+  color: #fff;
+  margin-top: 26px;
+}
+.error{
+  font-size: 13px;
+  color: #571515;
 }

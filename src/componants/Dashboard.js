@@ -15,16 +15,9 @@ import { faker } from '@faker-js/faker';
 
 
 const Dashboard = () => {
-const [record,setRecord] = useState([]
-  // {
-  //   address: "",
-  //   contact: "",
-  //   designation: "",
-  //   name: "",
-  //   salary: "",
-  //   _id: "",
-  // }
-);
+const [record,setRecord] = useState([]);
+const [userRecord,setUserRecord] = useState([]);
+
 const fetchData = async () =>{
   try {
     const response = await fetch(`https://api.publicapis.org/entries`);
@@ -43,9 +36,30 @@ const fetchData = async () =>{
   }
 }
 
+// const fetchDataUser = async () =>{
+//   try {
+//     const responseUser = await fetch(`https://randomuser.me/api/`);
+    
+//     if(responseUser){
+//       const resUser = await responseUser.json();
+//       if(resUser) {
+//         console.log(resUser);
+//         setUserRecord(resUser)
+//       }
+//     }
+    
+//     // console.log(record.entries);
+//   }catch (e) {
+//     console.log(e.message);
+//   }
+// }
+
+
+
  useEffect(() => {
   console.log("fetching");
    fetchData();
+   //fetchDataUser();
 }, []);
 
 
@@ -185,9 +199,9 @@ const fetchData = async () =>{
                     <td>{elem.API}</td>
                     <td>{elem.Auth}</td>
                     <td>{elem.Category}</td>
-                    <td>{elem.Cors}</td>
+                    <td><span class= {elem.Cors === "yes" ? "green" : "red"}>{elem.Cors}</span></td>
                     <td>{elem.Description}</td>
-                    <td>{JSON.stringify(elem.HTTPS)}</td>
+                    <td><span class= {JSON.stringify(elem.HTTPS) === "true" ? "green" : "red"}>{JSON.stringify(elem.HTTPS)}</span></td>
                     <td>{elem.Link}</td> 
                   </tr>
                 ))
