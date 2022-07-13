@@ -1,65 +1,51 @@
 import React, { useState, useEffect } from "react";
+import App from '../Routes';
 
 const User = (props) => {
-    const [userRecord,setUserRecord] = useState([]);
+  
+const [userData,setUserData] = useState([]);
+const [isLogedin, setIsLogedin] = useState(true);
 
-    const [storeUserName,setStoreUserName] = useState(props.storeUserName);
+useEffect(() => {
+setUserData(props.userRecord);
+<App/>
+}, []);
 
-    const fetchData = async () =>{
-      try {
-        const response = await fetch(`https://randomuser.me/api/`);
-        
-        if(response){
-          const res = await response.json();
-          if(res) {
-            console.log("User details",res);
-            setUserRecord(res.results)
-          }
-        }
-        
-        // console.log(record.entries);
-      }catch (e) {
-        console.log(e.message);
-      }
-    }
+console.log("userData",userData);
+
+console.log("isLogedinsssssss",isLogedin);
+props.onSubmit(isLogedin);
     
-     useEffect(() => {
-
-      console.log("fetching");
-       fetchData();
-       {userRecord && userRecord.length > 0 && 
-        setStoreUserName(userRecord[0].name.first)
-
-       }
-    }, []);
+  
     
  return(
      <>
+    
         <div className="componant">
             
             <div className="rowlane  gapBottom">
                 
-                     {userRecord && userRecord.length > 0 && 
+                     {userData && userData.length > 0 && 
                      <>
                         
                            <h3 className="maintitle">User Details</h3>
                            <div className="child1">
-                                <div className="imgUser"><img src={userRecord[0].picture.large}/></div>
+                                <div className="imgUser"><img src={userData[0].picture.large}/></div>
                                 <ul className="userdetails">
-                                    <li><span>Name: </span><span>{userRecord[0].name.title} {userRecord[0].name.first} {userRecord[0].name.last}</span></li>
+                                    <li><span>Name: </span><span>{userData[0].name.title} {userData[0].name.first} {userData[0].name.last}</span></li>
                                 </ul>
                             </div>
                            <div className="child2">
                                 <ul className="userdetails">
                                     
-                                    <li><span>Gender: </span><span>{userRecord[0].gender}</span></li>
-                                    <li><span>Email: </span><span>{userRecord[0].email}</span></li>
-                                    <li><span>DOB: </span><span>{userRecord[0].dob.date}</span></li>
-                                    <li><span>Cell No.: </span><span>{userRecord[0].cell}</span></li>
-                                    <li><span>Cell No.: </span><span>{userRecord[0].cell}</span></li>
+                                    <li><span>Gender: </span><span>{userData[0].gender}</span></li>
+                                    <li><span>Email: </span><span>{userData[0].email}</span></li>
+                                    <li><span>DOB: </span><span>{userData[0].dob.date}</span></li>
+                                    <li><span>Cell No.: </span><span>{userData[0].cell}</span></li>
+                                    <li><span>Cell No.: </span><span>{userData[0].cell}</span></li>
                                     <li><span>Location.: </span>
-                                        <span>{userRecord[0].location.street.number}, {userRecord[0].location.street.name},<br/>
-                                            {userRecord[0].location.city} , {userRecord[0].location.state},  {userRecord[0].location.country}
+                                        <span>{userData[0].location.street.number}, {userData[0].location.street.name},<br/>
+                                            {userData[0].location.city} , {userData[0].location.state},  {userData[0].location.country}
                                         </span>
                                     </li>
                                 </ul>

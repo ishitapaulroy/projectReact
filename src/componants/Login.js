@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Login = () => {
+const Login = (props) => {
 
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
@@ -9,32 +10,55 @@ const [password, setPassword] = useState("");
 const [emailError, setEmailError] = useState("");
 const [passwordError, setPasswordError] = useState("");
 
+const [isLogedin, setIsLogedin] = useState(false);
+
+
 const emailHandler = (e) =>{
+    e.preventDefault();
     setEmail(e.target.value);    
+    
 }
 const passwordHandler = (e) =>{
+    e.preventDefault();
     setPassword(e.target.value);
 }
 
 const validateField = (type = null) => {
     var emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     var passwordValid = password.length >= 2;
-    console.log("email",email,"emailValid",emailValid,"password",password,"passwordValid",passwordValid);
     
     if (type === "email" && email.length) {
         setEmailError(
-            email === emailValid ? "" : "Check what you did!!!!!!"
+            !emailValid ? "Check what you did!!!!!!" : ""
         )
     } else if (type === "password" && password.length) {
         setPasswordError(
-            password === passwordValid ? "": "Not again !!!"
+            !passwordValid ? "Not again !!!" : ""
         )
     }
   };
+let navigate = useNavigate();
 const formSubmit = (e) =>{
+    
     e.preventDefault();
-      
+    if (!email) {
+        setEmailError( "Please fillup the email");
+    } else {
+        setEmailError( "");
+    }
+    if (!password) {
+        setPasswordError( "Please fillup the password");
+    } else {
+        setPasswordError( "");
+    }
+    if(email && password){  
+         navigate('/dashboard'); 
+       
+    }
+    
 } 
+console.log("isLogedinsssssss",isLogedin);
+props.onSubmit(isLogedin);
 
 
 
@@ -58,7 +82,9 @@ const formSubmit = (e) =>{
                        {passwordError && <div className="error">{passwordError}</div>}                
                      </div>
                      <div>
-                        <button type="button" className="btn submit" onClick={formSubmit}>Login</button>
+                     <button type="button" disabled={( !emailError && !passwordError) ? "" : "disabled"} className="btn submit" onClick={formSubmit}>Login</button>
+
+                        
                      </div>
                 </div>
             
