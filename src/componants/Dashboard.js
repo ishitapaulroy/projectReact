@@ -190,18 +190,21 @@ const fetchData = async () =>{
                 <h3>Filter</h3>
                 <h4>Type 1</h4>
                 <ul>
-                  <li>Option 1</li>
-                  <li>Option 2</li>
+                  <li><label><input type="radio"/> Option 1</label></li>
+                  <li><label><input type="radio"/> Option 2</label></li>
+                  <li><label><input type="radio"/> Option 3</label></li>
                 </ul>
                 <h4>Type 2</h4>
                 <ul>
-                  <li>Option 1</li>
-                  <li>Option 2</li>
+                  <li><label><input type="radio"/> Option 1</label></li>
+                  <li><label><input type="radio"/> Option 2</label></li>
+                  <li><label><input type="radio"/> Option 3</label></li>
                 </ul>
+                <button className="btn blueBtn">Filter</button>
               </div>
               <div className="tableHolder">
-                <div>
-                  <input type="search" placeholder="Search for API"/>
+                <div className="gapBottom">
+                  <input type="search" className="search" placeholder="Search for API"/>
                 </div>
                 <table width="100%" className="table table-borderless" border="0" cellPadding="0" cellSpacing="0">
                   <thead>
