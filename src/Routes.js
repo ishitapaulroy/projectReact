@@ -21,13 +21,15 @@ function App(props) {
   const fetchData = async () =>{
     try {
       setIsLoader(true);
+
       const response = await fetch(`https://randomuser.me/api/`);
       
       if(response){
         const res = await response.json();
         if(res) {
           console.log("User details",res);
-          setUserRecord(res.results)
+          setUserRecord(res.results);
+          return;
         }
       }
       
@@ -39,22 +41,29 @@ function App(props) {
   
     }
   }
-
-   useEffect(() => {
+  let getDataObj = [];
+  useEffect(() => {
     fetchData();
-  }, []);
-  
+    userRecord.length > 0 && 
+    localStorage.setItem("keyUserData", JSON.stringify(userRecord));
+    const getData = localStorage.getItem("keyUserData");
+     getDataObj = JSON.parse(getData);
+   }, []);
+
+   
+
+
 const onSubmit = (isLogedin) => {    
     setIsLogged(isLogedin);
 }
 console.log("onSubmit", isLogged);
-  
+console.log("getDataObj", getDataObj);  
   return (
     <div className="app">
     {isLoader ? <Loader /> : ''}
      {!isLogged ? 
         <Header2/> :
-        userRecord && userRecord.length > 0 && <Header userRecord={userRecord}/>
+        getDataObj && getDataObj.length > 0 && <Header userRecord={getDataObj} onSubmit={onSubmit}/>
         
      }
      
@@ -64,8 +73,8 @@ console.log("onSubmit", isLogged);
         
             <Routes>
               <Route path="/dashboard" element={<Dashboard  onSubmit={onSubmit}/>} />
-              {userRecord && userRecord.length > 0 && 
-              <Route path="/user" element={<User userRecord={userRecord}  onSubmit={onSubmit} />} />
+              {getDataObj && getDataObj.length > 0 && 
+              <Route path="/user" element={<User userRecord={getDataObj}  onSubmit={onSubmit} />} />
               }
               <Route exact path="/" element={<Login onSubmit={onSubmit} />} />
               {/* <Route path="/create" element={<Create />} /> */}

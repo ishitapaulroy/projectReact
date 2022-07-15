@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes , Link, NavLink} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const Header = (props) => {
    const [userData,setUserData] = useState([]);
-
-      useEffect(() => {
+    const [isLogedin, setIsLogedin] = useState(true);
+    
+    let navigate = useNavigate();
+    
+    console.log("userData",userData);
+    
+    const logoutHandler = () =>{
+        setIsLogedin(false);
+        navigate('/'); 
+    }
+    useEffect(() => {
         setUserData(props.userRecord);
-     }, []);
-
-
-     console.log("userData",userData);
-
-
+        props.onSubmit(isLogedin);
+        }, []);
  return(
      <>
        <div className="header">
@@ -34,7 +40,9 @@ const Header = (props) => {
                     <li>
                         <Link to="/user">User Details</Link>
                     </li>
-                   
+                    <li>
+                        <button className="btn link" onClick={logoutHandler}>Logout</button>
+                    </li>
                     </ul>
                 </div>
                 </div>

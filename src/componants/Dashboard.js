@@ -21,6 +21,12 @@ const [userRecord,setUserRecord] = useState([]);
 const [isLoader, setIsLoader] = useState(false);
 const [isLogedin, setIsLogedin] = useState(true);
 
+const [q, setQ] = useState("");
+const [searchParam] = useState(["API","Auth","Category","Cors","HTTPS"]);
+//const [filterParam, setFilterParam] = useState(["All"]);
+const [filterParam1, setFilterParam1] = useState([]);
+const [filterParam2, setFilterParam2] = useState([]);
+const [filterParam3, setFilterParam3] = useState([]);
 
 const fetchData = async () =>{
   try {
@@ -148,9 +154,79 @@ const fetchData = async () =>{
   console.log("isLogedinsssssss",isLogedin);
   props.onSubmit(isLogedin);
   
+// function search(items) {
+//     return items.filter((item) => {
+//       return searchParam.some((newItem) => {
+//           return (
+//               item[newItem]
+//                   .toString()
+//                   .toLowerCase()
+//                   .indexOf(q.toLowerCase()) > -1
+//           );
+//       });
+//     });
+// }
+  
+// function search(items) {
+//   return items.filter((item) => {
 
+//   if (filterParam === item.Auth || filterParam === item.Cors || filterParam === JSON.stringify(item.HTTPS)) {
+//       return searchParam.some((newItem) => {
+//         return (
+//           item[newItem]
+//               .toString()
+//               .toLowerCase()
+//               .indexOf(q.toLowerCase()) > -1
+//                    );
+//                });
+//            } else if (filterParam == "All") {
+//               // console.log("filterParam", filterParam);
+//                return searchParam.some((newItem) => {
+//                    return (
+//                        item[newItem]
+//                            .toString()
+//                            .toLowerCase()
+//                            .indexOf(q.toLowerCase()) > -1
+//                    );
+//                });
+//            }
+//        });
+//    }
 
+const flterType1Handler  = (e) =>{
+  setFilterParam1(e.target.value);
+}
+const flterType2Handler  = (e) =>{
+  setFilterParam2(e.target.value);
+}
+const flterType3Handler  = (e) =>{
+  setFilterParam3(e.target.value);
+}
+function search(items) {
+  return items.filter((item) => {
 
+  if (filterParam1 === item.Auth || filterParam2 === item.Cors || filterParam3 === JSON.stringify(item.HTTPS)) {
+      return searchParam.some((newItem) => {
+        return (
+          item[newItem]
+              .toString()
+              .toLowerCase()
+              .indexOf(q.toLowerCase()) > -1
+                   );
+               });
+           } else if (filterParam1 == "" || filterParam2 == "" || filterParam3 == "") {
+              // console.log("filterParam", filterParam);
+               return searchParam.some((newItem) => {
+                   return (
+                       item[newItem]
+                           .toString()
+                           .toLowerCase()
+                           .indexOf(q.toLowerCase()) > -1
+                   );
+               });
+           }
+       });
+   }  
 
  return(
      <>
@@ -188,52 +264,86 @@ const fetchData = async () =>{
             <div className="rowlane  gapBottom">
               <div className="filter">
                 <h3>Filter</h3>
-                <h4>Type 1</h4>
+                <h4>Auth</h4>
+                    {/* <select
+                      onChange={(e) => {
+                      setFilterParam(e.target.value);
+                      }}
+                      className="custom-select"
+                      aria-label="auth">
+                      <option value="All">All</option>
+                      <option value="apiKey">apikey</option>
+                      <option value="OAuth">oAuth</option>
+
+                    </select>  */}
                 <ul>
-                  <li><label><input type="radio"/> Option 1</label></li>
-                  <li><label><input type="radio"/> Option 2</label></li>
-                  <li><label><input type="radio"/> Option 3</label></li>
-                </ul>
-                <h4>Type 2</h4>
+                  <li><label><input type="radio" name="auth" defaultChecked  value="All" onChange={(e) => flterType1Handler(e)}/> All</label></li>
+                  <li><label><input type="radio" name="auth" value="apiKey" onChange={(e) => flterType1Handler(e)}/> apiKey</label></li>
+                  <li><label><input type="radio" name="auth"  value="OAuth" onChange={(e) => flterType1Handler(e)}/> OAuth</label></li>
+                </ul> 
+                 <h4>Cors</h4>
                 <ul>
-                  <li><label><input type="radio"/> Option 1</label></li>
-                  <li><label><input type="radio"/> Option 2</label></li>
-                  <li><label><input type="radio"/> Option 3</label></li>
+                  <li><label><input type="radio" name="cors" defaultChecked value="All" onChange={(e) => flterType2Handler(e)}/>All</label></li>
+                  <li><label><input type="radio" name="cors" value="yes" onChange={(e) => flterType2Handler(e)}/>Yes</label></li>
+                  <li><label><input type="radio" name="cors" value="no" onChange={(e) => flterType2Handler(e)}/> No</label></li>
+                  <li><label><input type="radio" name="cors" value="unknown" onChange={(e) =>flterType2Handler(e)}/>Unknown</label></li>
                 </ul>
-                <button className="btn blueBtn">Filter</button>
+                <h4>HTTPS</h4>
+                <ul>
+                  <li><label><input type="radio" name="https" value="All" onChange={(e) => flterType3Handler(e)}/>All</label></li>
+                  <li><label><input type="radio" name="https" value="true" onChange={(e) => flterType3Handler(e)}/>True</label></li>
+                  <li><label><input type="radio" name="https" value="false" onChange={(e) => flterType3Handler(e)}/> False</label></li>
+                </ul> 
+                {/* <button className="btn blueBtn">Filter</button> */}
               </div>
-              <div className="tableHolder">
+              <div className="sideHolder">
                 <div className="gapBottom">
-                  <input type="search" className="search" placeholder="Search for API"/>
+                  
+                  <input
+                      type="search"
+                      name="search-form"
+                      id="search-form"
+                      className="search"
+                      placeholder="Search..."
+                      value={q}
+                      /*
+                      // set the value of our useState q
+                      //  anytime the user types in the search box
+                      */
+                      onChange={(e) => setQ(e.target.value)}
+                  />
                 </div>
-                <table width="100%" className="table table-borderless" border="0" cellPadding="0" cellSpacing="0">
-                  <thead>
-                    <tr>
-                      <th>API</th>
-                      <th>Auth</th>
-                      <th>Category</th>
-                      <th>Cors</th>
-                      <th>Description</th>
-                      <th>HTTPS</th>
-                      <th>Link</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {record && record.entries.length > 0 && record.entries.map((elem,key) => (
-                      <tr key={key}>
-                        <td>{elem.API}</td>
-                        <td>{elem.Auth}</td>
-                        <td>{elem.Category}</td>
-                        <td><span className= {elem.Cors === "yes" ? "green" : "red"}>{elem.Cors}</span></td>
-                        <td>{elem.Description}</td>
-                        <td><span className= {JSON.stringify(elem.HTTPS) === "true" ? "green" : "red"}>{JSON.stringify(elem.HTTPS)}</span></td>
-                        <td>{elem.Link}</td> 
+                <div className="tableHolder">
+                  <table width="100%" className="table table-borderless" border="0" cellPadding="0" cellSpacing="0">
+                    <thead>
+                      <tr>
+                        <th>API</th>
+                        <th>Auth</th>
+                        <th>Category</th>
+                        <th>Cors</th>
+                        <th>Description</th>
+                        <th>HTTPS</th>
+                        <th>Link</th>
                       </tr>
-                    ))
-                  }   
-                  {console.log("result:::::",record && record.entries)}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {record && record.entries.length > 0 && search(record.entries).map((elem,key) => (
+                        <tr key={key}>
+                          <td>{elem.API}</td>
+                          <td>{elem.Auth}</td>
+                          <td>{elem.Category}</td>
+                          <td><span className= {elem.Cors === "yes" ? "green" : "red"}>{elem.Cors}</span></td>
+                          <td>{elem.Description}</td>
+                          <td><span className= {JSON.stringify(elem.HTTPS) === "true" ? "green" : "red"}>{JSON.stringify(elem.HTTPS)}</span></td>
+                          <td>{elem.Link}</td> 
+                        </tr>
+                      ))
+                    }   
+                    {console.log("result:::::",record && record.entries)}
+                    </tbody>
+                  </table>
+                </div>
+               
               </div>
             </div>
         </div>

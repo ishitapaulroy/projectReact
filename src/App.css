@@ -540,9 +540,12 @@ h3.maintitle{
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
 }
-
-.tableHolder{
+.sideHolder{
   width:75%;
+  margin: 0;
+}
+.tableHolder{
+  width:100%;
   margin: 0;
   overflow: auto;
   max-height: 700px;
@@ -582,7 +585,8 @@ h3.maintitle{
 }
 .filter label{
   font-size: 13px;
-  line-height: 20px;
+  display: flex;
+  align-items: center;
   color: #232527;
 }
 .btn.blueBtn{
@@ -590,4 +594,14 @@ h3.maintitle{
   font-size: 20px;
   color: #fff;
   width: 100%;
+}
+.filter input{
+  margin-right: 6px;
+}
+.btn.link{
+  background-color: #0d81ee;
+  color: #fff;
+  height: 30px;
+  line-height: 12px;
+  font-size: 14px;
 }
