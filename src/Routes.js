@@ -17,6 +17,9 @@ function App(props) {
   const [isLoader, setIsLoader] = useState(false);
   
   const [userRecord,setUserRecord] = useState([]);
+
+  const [getDataObj,setGetDataObj] = useState([]);
+  
   
   const fetchData = async () =>{
     try {
@@ -27,27 +30,32 @@ function App(props) {
       if(response){
         const res = await response.json();
         if(res) {
-          console.log("User details",res);
+          //console.log("User details",res);
           setUserRecord(res.results);
           return;
         }
       }
-      
+
       // console.log(record.entries);
     }catch (e) {
       console.log(e.message);
     }finally{
+      
+      userRecord.length > 0 && 
+      localStorage.setItem("keyUserData", JSON.stringify(userRecord));
+      const getData = localStorage.getItem("keyUserData");
+      setGetDataObj( JSON.parse(getData));
+       console.log("keyUserData", getDataObj);
+       
       setIsLoader(false);
-  
+      
     }
   }
-  let getDataObj = [];
+  
+
   useEffect(() => {
     fetchData();
-    userRecord.length > 0 && 
-    localStorage.setItem("keyUserData", JSON.stringify(userRecord));
-    const getData = localStorage.getItem("keyUserData");
-     getDataObj = JSON.parse(getData);
+   
    }, []);
 
    
@@ -56,7 +64,7 @@ function App(props) {
 const onSubmit = (isLogedin) => {    
     setIsLogged(isLogedin);
 }
-console.log("onSubmit", isLogged);
+//console.log("onSubmit", isLogged);
 console.log("getDataObj", getDataObj);  
   return (
     <div className="app">

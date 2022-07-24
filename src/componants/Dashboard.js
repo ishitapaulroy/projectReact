@@ -23,10 +23,12 @@ const [isLogedin, setIsLogedin] = useState(true);
 
 const [q, setQ] = useState("");
 const [searchParam] = useState(["API","Auth","Category","Cors","HTTPS"]);
-//const [filterParam, setFilterParam] = useState(["All"]);
-const [filterParam1, setFilterParam1] = useState([]);
-const [filterParam2, setFilterParam2] = useState([]);
-const [filterParam3, setFilterParam3] = useState([]);
+const [filterParam, setFilterParam] = useState(["All"]);
+const [filterParam1, setFilterParam1] = useState("");
+const [filterParam2, setFilterParam2] = useState("");
+const [filterParam3, setFilterParam3] = useState("");
+
+const [nodDataFound, setNodDataFound] = useState(false);
 
 const fetchData = async () =>{
   try {
@@ -36,14 +38,14 @@ const fetchData = async () =>{
     if(response){
       const res = await response.json();
       if(res) {
-        console.log(res);
+       // console.log(res);
         setRecord(res)
       }
     }
     
     // console.log(record.entries);
   }catch (e) {
-    console.log(e.message);
+    //console.log(e.message);
   } finally{
     setIsLoader(false);
 
@@ -71,7 +73,7 @@ const fetchData = async () =>{
 
 
  useEffect(() => {
-  console.log("fetching");
+  //console.log("fetching");
    fetchData();
    //fetchDataUser();
 }, []);
@@ -149,9 +151,9 @@ const fetchData = async () =>{
       }
     }
   }
-  console.log("getAllCategories",getAllCategories);
+  //console.log("getAllCategories",getAllCategories);
 
-  console.log("isLogedinsssssss",isLogedin);
+  //console.log("isLogedinsssssss",isLogedin);
   props.onSubmit(isLogedin);
   
 // function search(items) {
@@ -167,31 +169,33 @@ const fetchData = async () =>{
 //     });
 // }
   
-// function search(items) {
-//   return items.filter((item) => {
 
-//   if (filterParam === item.Auth || filterParam === item.Cors || filterParam === JSON.stringify(item.HTTPS)) {
-//       return searchParam.some((newItem) => {
-//         return (
-//           item[newItem]
-//               .toString()
-//               .toLowerCase()
-//               .indexOf(q.toLowerCase()) > -1
-//                    );
-//                });
-//            } else if (filterParam == "All") {
-//               // console.log("filterParam", filterParam);
-//                return searchParam.some((newItem) => {
-//                    return (
-//                        item[newItem]
-//                            .toString()
-//                            .toLowerCase()
-//                            .indexOf(q.toLowerCase()) > -1
-//                    );
-//                });
-//            }
-//        });
-//    }
+
+//  function search(items) {
+//    return items.filter((item) => {
+
+//    if (filterParam === item.Auth || filterParam === item.Cors || filterParam === JSON.stringify(item.HTTPS)) {
+//        return searchParam.some((newItem) => {
+//          return (
+//            item[newItem]
+//                .toString()
+//                .toLowerCase()
+//                .indexOf(q.toLowerCase()) > -1
+//                     );
+//                 });
+//             } else if (filterParam == "All") {
+//                 console.log("filterParam", filterParam);
+//                 return searchParam.some((newItem) => {
+//                     return (
+//                         item[newItem]
+//                             .toString()
+//                             .toLowerCase()
+//                             .indexOf(q.toLowerCase()) > -1
+//                     );
+//                 });
+//             }
+//         });
+//     }
 
 const flterType1Handler  = (e) =>{
   setFilterParam1(e.target.value);
@@ -202,33 +206,64 @@ const flterType2Handler  = (e) =>{
 const flterType3Handler  = (e) =>{
   setFilterParam3(e.target.value);
 }
-function search(items) {
-  return items.filter((item) => {
 
-  if (filterParam1 === item.Auth || filterParam2 === item.Cors || filterParam3 === JSON.stringify(item.HTTPS)) {
-      return searchParam.some((newItem) => {
-        return (
-          item[newItem]
-              .toString()
-              .toLowerCase()
-              .indexOf(q.toLowerCase()) > -1
-                   );
-               });
-           } else if (filterParam1 == "" || filterParam2 == "" || filterParam3 == "") {
-              // console.log("filterParam", filterParam);
-               return searchParam.some((newItem) => {
-                   return (
-                       item[newItem]
-                           .toString()
-                           .toLowerCase()
-                           .indexOf(q.toLowerCase()) > -1
-                   );
-               });
-           }
-       });
-   }  
 
- return(
+
+ function filtering(items) {
+ 
+   return items.filter((item) => {
+
+             if (filterParam1 === item.Auth && filterParam2 === item.Cors && filterParam3 === JSON.stringify(item.HTTPS)) {
+              //console.log("1st");
+              return searchParam.some((newItem) => {
+           
+                return (
+                  item[newItem]
+                      .toString()
+                      .toLowerCase()
+                      .indexOf(q.toLowerCase()) > -1
+                );
+                     
+             });
+              
+            } else if (
+                          (filterParam1 === item.Auth && filterParam2 === "" && filterParam3 === "") ||  
+                          (filterParam1 === "" && filterParam2 === item.Cors && filterParam3 === "") ||
+                          (filterParam1 === "" && filterParam2 === "" && filterParam3 === JSON.stringify(item.HTTPS)) ||
+                          (filterParam1 === item.Auth && filterParam2 ===  item.Cors && filterParam3 === "") || 
+                          (filterParam1 === "" && filterParam2 === item.Cors && filterParam3 === JSON.stringify(item.HTTPS)) ||
+                          (filterParam1 === item.Auth && filterParam2 === "" && filterParam3 === JSON.stringify(item.HTTPS))   
+                        ) {
+              //console.log("2rd");
+
+                          return searchParam.some((newItem) => {          
+                              return (
+                                  item[newItem]
+                                      .toString()
+                                      .toLowerCase()
+                                      .indexOf(q.toLowerCase()) > -1
+                              );
+                          });
+                                   
+            
+            } else if (filterParam1 === "" && filterParam2 === "" && filterParam3 === "") {
+             // console.log("3th");
+                return searchParam.some((newItem) => {
+                    return (
+                        item[newItem]
+                            .toString()
+                            .toLowerCase()
+                            .indexOf(q.toLowerCase()) > -1
+                    );
+                    
+                });
+            }
+              
+        });
+           
+    }  
+
+ return( 
      <>
      {isLoader ? <Loader /> : ''}
     
@@ -277,20 +312,20 @@ function search(items) {
 
                     </select>  */}
                 <ul>
-                  <li><label><input type="radio" name="auth" defaultChecked  value="All" onChange={(e) => flterType1Handler(e)}/> All</label></li>
+                  <li><label><input type="radio" name="auth" defaultChecked  value="" onChange={(e) => flterType1Handler(e)}/> All</label></li>
                   <li><label><input type="radio" name="auth" value="apiKey" onChange={(e) => flterType1Handler(e)}/> apiKey</label></li>
                   <li><label><input type="radio" name="auth"  value="OAuth" onChange={(e) => flterType1Handler(e)}/> OAuth</label></li>
                 </ul> 
                  <h4>Cors</h4>
                 <ul>
-                  <li><label><input type="radio" name="cors" defaultChecked value="All" onChange={(e) => flterType2Handler(e)}/>All</label></li>
+                  <li><label><input type="radio" name="cors" defaultChecked value="" onChange={(e) => flterType2Handler(e)}/>All</label></li>
                   <li><label><input type="radio" name="cors" value="yes" onChange={(e) => flterType2Handler(e)}/>Yes</label></li>
                   <li><label><input type="radio" name="cors" value="no" onChange={(e) => flterType2Handler(e)}/> No</label></li>
                   <li><label><input type="radio" name="cors" value="unknown" onChange={(e) =>flterType2Handler(e)}/>Unknown</label></li>
                 </ul>
                 <h4>HTTPS</h4>
                 <ul>
-                  <li><label><input type="radio" name="https" value="All" onChange={(e) => flterType3Handler(e)}/>All</label></li>
+                  <li><label><input type="radio" name="https" defaultChecked value="" onChange={(e) => flterType3Handler(e)}/>All</label></li>
                   <li><label><input type="radio" name="https" value="true" onChange={(e) => flterType3Handler(e)}/>True</label></li>
                   <li><label><input type="radio" name="https" value="false" onChange={(e) => flterType3Handler(e)}/> False</label></li>
                 </ul> 
@@ -327,8 +362,10 @@ function search(items) {
                       </tr>
                     </thead>
                     <tbody>
-                      {record && record.entries.length > 0 && search(record.entries).map((elem,key) => (
-                        <tr key={key}>
+                      {record && record.entries.length > 0 && filtering(record.entries).map((elem,key) => (
+                        <>
+                        <tr key={key} 
+                        >
                           <td>{elem.API}</td>
                           <td>{elem.Auth}</td>
                           <td>{elem.Category}</td>
@@ -337,9 +374,12 @@ function search(items) {
                           <td><span className= {JSON.stringify(elem.HTTPS) === "true" ? "green" : "red"}>{JSON.stringify(elem.HTTPS)}</span></td>
                           <td>{elem.Link}</td> 
                         </tr>
+                      </>
+                      
                       ))
-                    }   
-                    {console.log("result:::::",record && record.entries)}
+                      
+                    }  
+                   
                     </tbody>
                   </table>
                 </div>

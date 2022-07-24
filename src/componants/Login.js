@@ -57,7 +57,7 @@ const formSubmit = (e) =>{
     }
     
 } 
-console.log("isLogedinsssssss",isLogedin);
+//console.log("isLogedinsssssss",isLogedin);
 props.onSubmit(isLogedin);
 
 
