@@ -45,7 +45,7 @@ function App(props) {
       localStorage.setItem("keyUserData", JSON.stringify(userRecord));
       const getData = localStorage.getItem("keyUserData");
       setGetDataObj( JSON.parse(getData));
-       console.log("keyUserData", getDataObj);
+      console.log("keyUserData", getDataObj);
        
       setIsLoader(false);
       

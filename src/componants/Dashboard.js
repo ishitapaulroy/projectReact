@@ -253,7 +253,8 @@ const flterType3Handler  = (e) =>{
                         item[newItem]
                             .toString()
                             .toLowerCase()
-                            .indexOf(q.toLowerCase()) > -1
+                            .indexOf(q.toLowerCase()) > -1 
+                            
                     );
                     
                 });
@@ -362,23 +363,30 @@ const flterType3Handler  = (e) =>{
                       </tr>
                     </thead>
                     <tbody>
-                      {record && record.entries.length > 0 && filtering(record.entries).map((elem,key) => (
+                      {record && record.entries.length > 0 && ( 
+                        filtering(record.entries).length > 0 ? filtering(record.entries).map((elem,key) => (
                         <>
-                        <tr key={key} 
-                        >
-                          <td>{elem.API}</td>
-                          <td>{elem.Auth}</td>
-                          <td>{elem.Category}</td>
-                          <td><span className= {elem.Cors === "yes" ? "green" : "red"}>{elem.Cors}</span></td>
-                          <td>{elem.Description}</td>
-                          <td><span className= {JSON.stringify(elem.HTTPS) === "true" ? "green" : "red"}>{JSON.stringify(elem.HTTPS)}</span></td>
-                          <td>{elem.Link}</td> 
-                        </tr>
-                      </>
+                          <tr key={key}>
+                            {console.log("filtering(record.entries).length",filtering(record.entries).length)}
+                            <td>{elem.API}</td>
+                            <td>{elem.Auth}</td>
+                            <td>{elem.Category}</td>
+                            <td><span className= {elem.Cors === "yes" ? "green" : "red"}>{elem.Cors}</span></td>
+                            <td>{elem.Description}</td>
+                            <td><span className= {JSON.stringify(elem.HTTPS) === "true" ? "green" : "red"}>{JSON.stringify(elem.HTTPS)}</span></td>
+                            <td>{elem.Link}</td> 
+                          </tr>
+                        </>            
+                        )) : filtering(record.entries).length == 0 ? <tr><td colspan="7">No data found {console.log("filtering(record.entries).length 2",filtering(record.entries).length)}</td></tr>
+                        
+                        : <tr><td colspan="7">No data found {console.log("filtering(record.entries).length 3",filtering(record.entries).length)}</td></tr>
+                        
+                        )
+                        
+                     }
+                         
                       
-                      ))
-                      
-                    }  
+               
                    
                     </tbody>
                   </table>
