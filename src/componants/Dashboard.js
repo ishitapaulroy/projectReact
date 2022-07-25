@@ -138,6 +138,8 @@ const fetchData = async () =>{
   }
 
   var getAllCategories = 0; 
+  var catName = "";
+  var catNumber = [];
   var prevCat = "";
   for (let i = 0; i < record.entries.length; i++) {
     if (i === 0){
@@ -146,8 +148,14 @@ const fetchData = async () =>{
     }else{
       if(prevCat !== record.entries[i].Category){
           prevCat = record.entries[i].Category;
-          //console.log(prevCat );
+          catName = prevCat;
+
+          console.log(prevCat, catName);
+          if(catName === prevCat){
+            catNumber.push(catName);
+          }
           getAllCategories++;
+          console.log(catName,"lklk", catNumber );
       }
     }
   }
@@ -155,47 +163,7 @@ const fetchData = async () =>{
 
   //console.log("isLogedinsssssss",isLogedin);
   props.onSubmit(isLogedin);
-  
-// function search(items) {
-//     return items.filter((item) => {
-//       return searchParam.some((newItem) => {
-//           return (
-//               item[newItem]
-//                   .toString()
-//                   .toLowerCase()
-//                   .indexOf(q.toLowerCase()) > -1
-//           );
-//       });
-//     });
-// }
-  
 
-
-//  function search(items) {
-//    return items.filter((item) => {
-
-//    if (filterParam === item.Auth || filterParam === item.Cors || filterParam === JSON.stringify(item.HTTPS)) {
-//        return searchParam.some((newItem) => {
-//          return (
-//            item[newItem]
-//                .toString()
-//                .toLowerCase()
-//                .indexOf(q.toLowerCase()) > -1
-//                     );
-//                 });
-//             } else if (filterParam == "All") {
-//                 console.log("filterParam", filterParam);
-//                 return searchParam.some((newItem) => {
-//                     return (
-//                         item[newItem]
-//                             .toString()
-//                             .toLowerCase()
-//                             .indexOf(q.toLowerCase()) > -1
-//                     );
-//                 });
-//             }
-//         });
-//     }
 
 const flterType1Handler  = (e) =>{
   setFilterParam1(e.target.value);
@@ -301,17 +269,6 @@ const flterType3Handler  = (e) =>{
               <div className="filter">
                 <h3>Filter</h3>
                 <h4>Auth</h4>
-                    {/* <select
-                      onChange={(e) => {
-                      setFilterParam(e.target.value);
-                      }}
-                      className="custom-select"
-                      aria-label="auth">
-                      <option value="All">All</option>
-                      <option value="apiKey">apikey</option>
-                      <option value="OAuth">oAuth</option>
-
-                    </select>  */}
                 <ul>
                   <li><label><input type="radio" name="auth" defaultChecked  value="" onChange={(e) => flterType1Handler(e)}/> All</label></li>
                   <li><label><input type="radio" name="auth" value="apiKey" onChange={(e) => flterType1Handler(e)}/> apiKey</label></li>
@@ -367,7 +324,6 @@ const flterType3Handler  = (e) =>{
                         filtering(record.entries).length > 0 ? filtering(record.entries).map((elem,key) => (
                         <>
                           <tr key={key}>
-                            {console.log("filtering(record.entries).length",filtering(record.entries).length)}
                             <td>{elem.API}</td>
                             <td>{elem.Auth}</td>
                             <td>{elem.Category}</td>
@@ -377,9 +333,9 @@ const flterType3Handler  = (e) =>{
                             <td>{elem.Link}</td> 
                           </tr>
                         </>            
-                        )) : filtering(record.entries).length == 0 ? <tr><td colspan="7">No data found {console.log("filtering(record.entries).length 2",filtering(record.entries).length)}</td></tr>
+                        )) : filtering(record.entries).length == 0 ? <tr><td colspan="7">No data found </td></tr>
                         
-                        : <tr><td colspan="7">No data found {console.log("filtering(record.entries).length 3",filtering(record.entries).length)}</td></tr>
+                        : <tr><td colspan="7">No data found </td></tr>
                         
                         )
                         
