@@ -28,6 +28,8 @@ const [filterParam1, setFilterParam1] = useState("");
 const [filterParam2, setFilterParam2] = useState("");
 const [filterParam3, setFilterParam3] = useState("");
 
+const [catCount, setCatCount] = useState({});
+
 const [nodDataFound, setNodDataFound] = useState(false);
 
 const fetchData = async () =>{
@@ -52,32 +54,33 @@ const fetchData = async () =>{
   }
 }
 
-// const fetchDataUser = async () =>{
-//   try {
-//     const responseUser = await fetch(`https://randomuser.me/api/`);
-    
-//     if(responseUser){
-//       const resUser = await responseUser.json();
-//       if(resUser) {
-//         console.log(resUser);
-//         setUserRecord(resUser)
-//       }
-//     }
-    
-//     // console.log(record.entries);
-//   }catch (e) {
-//     console.log(e.message);
-//   }
-// }
-
-
-
  useEffect(() => {
   //console.log("fetching");
    fetchData();
    //fetchDataUser();
 }, []);
 
+
+
+var catName = "";
+var catNumber = [];
+var catNameALL = [];
+var catNumberALL = [];
+for (let i = 0; i < record.entries.length; i++) {
+   catName = record.entries[i].Category;
+   catNumber.push(catName);
+}
+catNumber.sort();
+
+ const counts = catNumber.reduce((acc, value) => ({
+   ...acc,
+   [value]: (acc[value] || 0) + 1
+ }), {});
+ // catNumberALL.push(counts);
+ catNameALL = Object.keys(counts);
+
+ catNumberALL = Object.values(counts)
+console.log("name",catNameALL, "count", catNumberALL);
 
   ChartJS.register(
     CategoryScale,
@@ -98,22 +101,24 @@ const fetchData = async () =>{
       },
       title: {
         display: true,
-        text: 'Salary Graph of Employee',
+        text: 'Showing total Categories we cover',
       },
     },
   };
 
-  const labels = ['100000', '80000', '60000', '40000', '20000', '2000'];
-  // const labels = record.map((elem,key) => {
-  //   return (elem.salary)
-  // })
+  const labels = catNameALL;
+  
+  //  const labels = counts.map((elem,key) => {
+  //    return (elem.salary)
+  //  })
 
  const data1 = {
     labels,
     datasets: [
       {
-        label: 'salary',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 100000 })),
+        label: 'Category',
+        //data: labels.map(() => faker.datatype.number({ min: 0, max: 100000 })),
+        data: catNumberALL,
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       }
@@ -138,8 +143,6 @@ const fetchData = async () =>{
   }
 
   var getAllCategories = 0; 
-  var catName = "";
-  var catNumber = [];
   var prevCat = "";
   for (let i = 0; i < record.entries.length; i++) {
     if (i === 0){
@@ -148,18 +151,12 @@ const fetchData = async () =>{
     }else{
       if(prevCat !== record.entries[i].Category){
           prevCat = record.entries[i].Category;
-          catName = prevCat;
-
-          console.log(prevCat, catName);
-          if(catName === prevCat){
-            catNumber.push(catName);
-          }
           getAllCategories++;
-          console.log(catName,"lklk", catNumber );
       }
     }
   }
-  //console.log("getAllCategories",getAllCategories);
+
+
 
   //console.log("isLogedinsssssss",isLogedin);
   props.onSubmit(isLogedin);
@@ -240,11 +237,6 @@ const flterType3Handler  = (e) =>{
             <h3 className="maintitle">DashBoard</h3>
             <div className="rowlane  gapBottom">
               <div className="graphChild">
-                <div>
-                   <Line options={options} data={data1} />
-                </div>
-              </div>
-              <div className="graphChild">
                 <div className="statBoxes">
                   <div className="statbox one">
                       <span>Total Count</span>
@@ -264,6 +256,12 @@ const flterType3Handler  = (e) =>{
                   </div>
                 </div>
               </div>
+              <div className="graphChild">
+                <div>
+                   <Line options={options} data={data1} />
+                </div>
+              </div>
+             
             </div>
             <div className="rowlane  gapBottom">
               <div className="filter">
