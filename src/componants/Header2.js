@@ -11,7 +11,7 @@ const Header2 = (props) => {
        <div className="header">
             <div className="container">
                 <div className="rowlane">
-                <div className="logo"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Pylons_Project_logo_on_transparent_background.png"/></div>
+                <div className="logo"><img src="https://www.nsbpictures.com/wp-content/uploads/2019/11/logo-icon-png-8.png"/></div>
                
                 </div>
             </div>

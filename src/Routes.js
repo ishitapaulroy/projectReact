@@ -30,7 +30,7 @@ function App(props) {
       if(response){
         const res = await response.json();
         if(res) {
-          //console.log("User details",res);
+          console.log("User details",res.results);
           setUserRecord(res.results);
           return;
         }

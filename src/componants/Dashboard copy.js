@@ -234,32 +234,29 @@ const flterType3Handler  = (e) =>{
 
 
 const dataPerPage = 100;
-const totalPage = Math.ceil(filtering(record.entries).length / dataPerPage) ;
+const totalPage = Math.ceil(record.entries.length / 100) ;
 const pageArray = [];
 for (let index = 1; index <= totalPage; index++) {
    var noom = index;
    pageArray.push(index); 
 }
-
 console.log("dataPerPage",dataPerPage,"pageArray",pageArray);
 
 const openThePage = (page, index) =>{
   setPageCount(index);
   console.log("page, index", page, index, pageCount);
-  if(index>page){
-    setPageCount(1);
-  }
 }
 const paginationPrev = () =>{
  console.log("pageCount", pageCount);
  setPageCount(pageCount - 1);
  console.log("pageCount", pageCount);
+
 }
 const paginationNext = () =>{
   console.log("pageCount", pageCount);
-  setPageCount(pageCount + 1);  
+  setPageCount(pageCount + 1);
  console.log("pageCount", pageCount);
- 
+
 }
  return( 
      <>
@@ -351,7 +348,7 @@ const paginationNext = () =>{
                     </thead>
                     <tbody>
                       {record && record.entries.length > 0 && ( 
-                        filtering(record.entries).length > 0 ? filtering(record.entries).slice(pageCount*dataPerPage, (pageCount+1)*dataPerPage).map((elem,key) => (
+                        filtering(record.entries).length > 0 ? filtering(record.entries).map((elem,key) => (
                         <>
                           <tr key={key}>
                             <td>{elem.API}</td>
@@ -378,7 +375,6 @@ const paginationNext = () =>{
                   </table>
                 </div>
                 <div className="paginationHolder">
-                
                     <ul className="pagination">
                       <li className="page-item"><button className="page-link" onClick={paginationPrev}>Previous</button></li>
                       {
